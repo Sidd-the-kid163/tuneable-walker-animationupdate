@@ -1,0 +1,3 @@
+[submodule "frost-dev"]
+	path = frost-dev
+	url = https://github.com/dynamicmobility/frost-dev.git

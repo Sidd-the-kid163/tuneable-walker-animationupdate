@@ -1,0 +1,284 @@
+{
+  "Dimension": 8,
+  "hasOffset": false,
+  "hasPhaseParam": true,
+  "OutputParams": {
+  },
+  "OffsetParams": [],
+  "Name": "position",
+  "PhaseParams": {
+  },
+  "OutputLabel": [
+    "RightShinExtension",
+    "RightKnee",
+    "RightThighExtension",
+    "RightHip",
+    "LeftHip",
+    "LeftThighExtension",
+    "LeftKnee",
+    "LeftShinExtension"
+  ],
+  "PhaseType": "StateBased",
+  "DesiredType": "Bezier",
+  "RelativeDegree": 2,
+  "Holonomic": true,
+  "PolyDegree": 5,
+  "ActualFuncs": [
+    {
+      "Name": "ya_position_v1",
+      "Vars": [
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_ya_position_v1",
+        "JacStruct": "Js_ya_position_v1",
+        "Hess": "H_ya_position_v1",
+        "HessStruct": "Hs_ya_position_v1"
+      }
+    },
+    {
+      "Name": "d1ya_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_d1ya_position_v1",
+        "JacStruct": "Js_d1ya_position_v1",
+        "Hess": "H_d1ya_position_v1",
+        "HessStruct": "Hs_d1ya_position_v1"
+      }
+    },
+    {
+      "Name": "Jd2ya_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_Jd2ya_position_v1",
+        "JacStruct": "Js_Jd2ya_position_v1",
+        "Hess": "H_Jd2ya_position_v1",
+        "HessStruct": "Hs_Jd2ya_position_v1"
+      }
+    }
+  ],
+  "DesiredFuncs": [
+    {
+      "Name": "yd_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_yd_position_v1",
+        "JacStruct": "Js_yd_position_v1",
+        "Hess": "H_yd_position_v1",
+        "HessStruct": "Hs_yd_position_v1"
+      }
+    },
+    {
+      "Name": "d1yd_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        },
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_d1yd_position_v1",
+        "JacStruct": "Js_d1yd_position_v1",
+        "Hess": "H_d1yd_position_v1",
+        "HessStruct": "Hs_d1yd_position_v1"
+      }
+    },
+    {
+      "Name": "Jd2yd_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        },
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_Jd2yd_position_v1",
+        "JacStruct": "Js_Jd2yd_position_v1",
+        "Hess": "H_Jd2yd_position_v1",
+        "HessStruct": "Hs_Jd2yd_position_v1"
+      }
+    }
+  ],
+  "PhaseFuncs": [
+    {
+      "Name": "tau_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_tau_position_v1",
+        "JacStruct": "Js_tau_position_v1",
+        "Hess": "H_tau_position_v1",
+        "HessStruct": "Hs_tau_position_v1"
+      }
+    },
+    {
+      "Name": "d1tau_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_d1tau_position_v1",
+        "JacStruct": "Js_d1tau_position_v1",
+        "Hess": "H_d1tau_position_v1",
+        "HessStruct": "Hs_d1tau_position_v1"
+      }
+    },
+    {
+      "Name": "Jd2tau_position_v1",
+      "Vars": [
+        {
+        },
+        {
+        },
+        {
+        }
+      ],
+      "Params": [],
+      "Status": {
+        "FunctionExported": false,
+        "JacobianExported": false,
+        "HessianExported": false,
+        "FunctionSaved": false,
+        "FunctionLoaded": false
+      },
+      "Funcs": {
+        "Jac": "J_Jd2tau_position_v1",
+        "JacStruct": "Js_Jd2tau_position_v1",
+        "Hess": "H_Jd2tau_position_v1",
+        "HessStruct": "Hs_Jd2tau_position_v1"
+      }
+    }
+  ],
+  "OutputFuncs": [],
+  "PhaseVariable": {
+  },
+  "ActualOutput": {
+  },
+  "DesiredOutput": {
+  },
+  "PhaseParamName": "pposition",
+  "OutputParamName": "aposition",
+  "OffsetParamName": "cposition",
+  "ControlledJoints": [
+    "RightShinExtension",
+    "RightKnee",
+    "RightThighExtension",
+    "RightHip",
+    "LeftHip",
+    "LeftThighExtension",
+    "LeftKnee",
+    "LeftShinExtension"
+  ],
+  "URDF_JointOrder": [
+    "BasePosX",
+    "BasePosZ",
+    "BaseRotY",
+    "LeftHip",
+    "LeftThighExtension",
+    "LeftKnee",
+    "LeftShinExtension",
+    "RightHip",
+    "RightThighExtension",
+    "RightKnee",
+    "RightShinExtension"
+  ]
+}

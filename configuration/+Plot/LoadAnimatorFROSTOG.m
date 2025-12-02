@@ -1,0 +1,23 @@
+function [conGUI] = LoadAnimatorFROSTOG(behavior, logger, varargin)
+
+np = length(logger);
+
+t = [];
+q = [];
+for i=1:np
+    t = [t, logger(i).flow.t]; %#ok<*AGROW>
+    q = [q, logger(i).flow.states.x];
+end
+
+robot_disp = Plot.LoadDisplay(behavior, varargin{:});
+
+anim = frost.Animator.AbstractAnimator(robot_disp, t, q);
+anim.isLooping = false;
+anim.speed = 1;
+% anim.isPlaying = 0;
+anim.pov = frost.Animator.AnimatorPointOfView.Free;
+% anim.updateWorldPosition = false;
+anim.Animate(true);
+conGUI = frost.Animator.AnimatorControls();
+conGUI.anim = anim;
+end
