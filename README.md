@@ -1,64 +1,61 @@
-# tunable-walker-trajopt
-This repository contains the pre-generated gaits for the 5-link adjustable walker, as well as the code to generate new gaits.
+# tunable-walker-animationupdate
+This repository is a handover of the https://github.com/dynamicmobility/tunable-walker-trajopt and builds on the animation capabilities of the frost + 5-link walker optimization code in two ways: First, we try to use the control points from the YAML file to directly animate the walker without the need for optimization/logger structure. Secondly, we improve the visibility of the animation by providing coordinates of the joints in a legend adjacent to the animation. An explanation of the files created:
 
-## Control parameter files (pre-generated gaits)
-Each of the 25 gaits are stored in the folder 'All_Gaits'. In particular, the '.yaml' file stores the bezier coefficients in the field 'aposition'. These parameters are of size nx8 with n=6. These 6 joints are associated with the joints:
-1. Stance Leg Shin Extension
-2. Stance Leg Knee Joint
-3. Stance Leg Thigh Extension
-4. Swing Leg Hip
-5. Swing Leg Knee
-6. Swing Leg Shin Extension
+## MAIN SCRIPT.m
+It compiles all the code for optimization, connection to frost and snake yaml. This iterates over gait movements that are influenced by parameters: step length and thigh length. For testing purposes, you can use to avoid optimizing every time besides from commenting out the for loops:
+```save('loggertempsave.mat'),'logger')```
 
-To load a stored gait from the yaml, use:
-```matlab
-yaml = yaml_read_file('All_Gaits/gait_1_1/params_gait_1_1.yaml',true,false)
-gait = yaml.domain{1}
-control_points = reshape(gait.aposition,6,8)
-```
+A few solutions to keep in mind when optimizing:
+1. Make sure to install snakeyaml and add to path.
+2. When using original tunable walker, add this to make sure the integrals compile before use:
+   ```OPT.compile(nlp,[],[],export_path)```
+3. Fix export path (add your own) in export.m
+4. When using original tunable walker, remember to reset logger after each iteration to avoid carryover.
 
-Then, for example, if you wanted to plot the trajectory of the stance knee, you could run the following
-```matlab
-sl_knee_cp = control_points(2,:)
-phase_vals = linspace(0,1);
-knee_vals = bezier(sl_knee_cp,phase_vals);
-plot(phase_vals, knee_vals);
-```
+## frostanimator.m
+This is analogous to the main script for using control points to animate the robot walker.
 
-## Gait Generation Code
-For a tutorial on FROST, I recommend following the frost example repository (https://github.com/dynamicmobility/rabbit-opt-example). This repository is a variation in which the parameters are more easily adjustable for easier personalization.
+## qtgenerator.m
+This file compiles the yaml file and converts it to control points for each of the 8 joints:
+1. X_base [Taken to be 0 since control points do not track base. Same for Y_base and Base_theta]
+2. Y_ base
+3. Base_theta
+4. Stance Hip [Taken to be 0]
+5. Stance Thigh Extension
+6. Stance Knee
+7. Stance Shin Extension
+8. Swing Hip
+9. Swing Thigh Extension [Taken to be 0]
+10. Swing Knee
+11. Swing Shin Extension
+Stance leg is taken to be the left leg and swing being the right leg.
 
-### Installation
-1. This example requires the following dependencies:
-	- MATLAB 2022b or later (Can be installed from GT software portal) with the following add-ons:
-        - Curve Fitting Toolbox
-        - Optimization Toolbox
-        - Symbolic Math Toolbox
-        - Robotics System Toolbox
-        - Control System Toolbox
-	- Mathematica 12X (Requires special permission from OIT to install)
-2. FROST is a toolbox which is set up as a submodule for this repo. Make sure you have cloned the repo including submodules, then set up
-FROST following the instructions provided [here](https://ayonga.github.io/frost-dev/pages/installation.html)
-- Note that you may need to add the following line to your .bashrc in order for FROST to successfully locate certain linked libraries.
-    ```
-    LD_LIBRARY_PATH=/usr/local/Wolfram/Mathematica/12.0/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions:$LD_LIBRARY_PATH
-    ```
-3. Install the SnakeYAML Library in MATLAB by running `setupMatlabYaml.m`
-   located in the folder `tools/matlabYaml`. 
-4. When you run the `main_opt.m` script, make sure you ran MATLAB from your
-   terminal. This ensures that the environment variables that were set in step 3
-   were correctly loaded. Otherwise, expect an error similar to the following to
-   show up when you run `frost_addpath`:
-   ```
-   Invalid MEX-file <your_path>: libWSTP64i4.so: cannot open shared object file: No such file or directory
-   ```
-5. The first time you run the main_opt script, you will need to compile the .mex files required to run the gait generation problem. To set the compile flags to true, change lines 39 and 48 of main_opt to:
-    ```
-    compileMex = [1,1];
-    do_compile = [1,1,1];
-    ```
-    After compiling the mex files, you can set these lines to false (0). Note that you will need to recompile the .mex files if you change the gait generation problem setup.
-6. Run the entire `main_opt.m` script to generate and simulate a gait
+## Other common issues for both animation and optimization:
+1. Mathematica (Wolfram) does not include the latest WSTP files (only contains the ML files). Make sure to make a copy of it from the wolfram foler containing the WSTP files and place it in the Math Link folder.
+2. Original Tunable-Walker repo does not contain the matlabYaml folder for actions related to YAML files.
+3. FROST uses a legend BlockDiagonalMatrix which conflicts with that of Mathematica. So this name needs to be changed to something else in the original repo.
+4. Configuration directories are inaccessible in the original repo and needs to be fixed.
 
-### Run TrajOpt
-To run the main trajectory optimization code, run the `MAIN_SCRIPT.M` script. This generates the GIFs for all 25 pre-generated gaits.
+## RunOpt.m
+This is the file where optimization takes place.
+
+##All_Gaits
+Contain the gifs and cost underlined by each optimization creating a gif with a different step length and thigh length from 1-5 for each. The gifs folder contains the gifs associated with each of these paramaters. To see how the legend is added for showcase of coordinations, see gait_1_1, gait_1_2, and gait_1_2_3 in the gif folder.
+
+### EXPORTVIRTUALCONSTRAINT.m
+This file is used to transfer vc behavior system of the robot for use in LLM research. This creates vc.json
+
+### loggertempsave.mat
+This file stores the logger variable for use in future testing (Belongs to gait 1_1).
+
+### simplearraycomptest.py
+This file contains a simple MSE test to compare between two arrays containing 6 x 8 control points (handy when testing LLM model capability in Bezier parameterization). As is known, since there are 8 control points for each joint, we use the 7th order Bezier curve to represent the joint points.
+
+### yamlmatlab
+This folder (https://github.com/ewiger/yamlmatlab) is a handover from Yauhen Yakimovich that provides easier YAML actions. Preferred over the original YAML tooling, unless specifically needed.
+
+### frost-dev
+FROST: Fast Robot Optimization and Simulation Toolkit (http://ayonga.github.io/frost-dev)
+
+### URDF
+Contains a description of the robotic system, key to animation and optimization. Also used to explain to the LLM model easily what the robotic system is.
