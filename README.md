@@ -31,10 +31,11 @@ This file compiles the yaml file and converts it to control points for each of t
 Stance leg is taken to be the left leg and swing being the right leg.
 
 ## Other common issues for both animation and optimization:
-1. Mathematica (Wolfram) does not include the latest WSTP files (only contains the ML files). Make sure to make a copy of it from the wolfram foler containing the WSTP files and place it in the Math Link folder.
-2. Original Tunable-Walker repo does not contain the matlabYaml folder for actions related to YAML files.
-3. FROST uses a legend BlockDiagonalMatrix which conflicts with that of Mathematica. So this name needs to be changed to something else in the original repo.
-4. Configuration directories are inaccessible in the original repo and needs to be fixed.
+1. Note that this repository and the one it is based to are similar to the rabbit example (https://github.com/dynamicmobility/rabbit-opt-example) and can be used for duplication in case of confusion.
+2. Mathematica (Wolfram) does not include the latest WSTP files (only contains the ML files). Make sure to make a copy of it from the wolfram foler containing the WSTP files and place it in the Math Link folder.
+3. Original Tunable-Walker repo does not contain the matlabYaml folder for actions related to YAML files.
+4. FROST uses a legend BlockDiagonalMatrix which conflicts with that of Mathematica. So this name needs to be changed to something else in the original repo.
+5. Configuration directories are inaccessible in the original repo and needs to be fixed.
 
 ## RunOpt.m
 This is the file where optimization takes place.
