@@ -1,46 +1,39 @@
 function [q, t] = qtgenerator()
 
-    %% -------------------------------------------------------
-    %  Load YAML (must have yamlmatlab added to path)
-    % --------------------------------------------------------
+    %  Load YAML
     data = yaml.ReadYaml('All_Gaits/gait_1_1/params_gait_1_1.yaml');
 
     gait = data.domain{1};     % Python: data['domain'][0]
 
-    %% -------------------------------------------------------
-    %  Extract aposition and reshape exactly like NumPy
-    % --------------------------------------------------------
-    % gait.aposition is a 1x48 cell array → convert to numeric
+    
+    %  Extract aposition 
     if iscell(gait.aposition)
         flat = cell2mat(gait.aposition);     % 1 x 48 double
     else
         flat = gait.aposition;               % Already numeric
     end
 
-    % Python: control_points = np.reshape(aposition, (6, 8))
-    % NumPy is row-major, MATLAB is column-major → reshape as (8,6)'.
-    control_points = reshape(flat, 8, 6).';  % 6 x 8, same as Python
+    
+    % NumPy is row-major, MATLAB is column-major
+    control_points = reshape(flat, 6, 8).';
 
-    %% -------------------------------------------------------
-    %  Build mod_control_points EXACTLY like Python
-    % --------------------------------------------------------
-    mod_control_points = cell(8,1);
-    mod_control_points{1} = zeros(1,8);             % Python index 0
-    mod_control_points{2} = control_points(3,:);    % [2] in Python
-    mod_control_points{3} = control_points(2,:);    % [1]
-    mod_control_points{4} = control_points(1,:);    % [0]
-    mod_control_points{5} = control_points(4,:);    % [3]
-    mod_control_points{6} = zeros(1,8);             % Python index 5 is also zeros
-    mod_control_points{7} = control_points(5,:);    % [4]
-    mod_control_points{8} = control_points(6,:);    % [5]
-
+    %  Build mod_control_points
+    mod_control_points = cell(6,1);
+    mod_control_points{1} = control_points(5,:);   % Matlab index does not start from 0
+    mod_control_points{2} = control_points(3,:);    
+    mod_control_points{3} = control_points(7,:);    
+    mod_control_points{4} = control_points(8,:);    
+    mod_control_points{5} = control_points(4,:);    
+    mod_control_points{6} = control_points(3,:);           
+    mod_control_points{7} = control_points(2,:);    
+    mod_control_points{8} = control_points(1,:);    
     %% -------------------------------------------------------
     %  Parameter vector t = np.linspace(0,1,200)
     % --------------------------------------------------------
     t = linspace(0.0, 1.0, 200);
 
     %% -------------------------------------------------------
-    %  Evaluate trajectories same as Python loop
+    %  Evaluate trajectories
     % --------------------------------------------------------
     q = zeros(length(t), 11);   % 3 zeros + 8 Bézier values
 
@@ -64,11 +57,8 @@ function [q, t] = qtgenerator()
 end
 
 
-%% -------------------------------------------------------
-%  Local Bézier function — EXACLY Python equivalent
-% --------------------------------------------------------
 function value = bezier_point_1d(control_points, t)
-    n = 7;
+    n = 5;
     value = 0.0;
 
     for i = 0:n
